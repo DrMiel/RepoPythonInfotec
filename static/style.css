@@ -1,0 +1,373 @@
+/* General styles */
+body {
+    /* Tipografía serif moderna */
+    font-family: 'Playfair Display', serif;
+    /* Fondo estático de alta calidad con overlay sutil */
+    background-color: #f2f6fb; /* fallback */
+    /* Use a web-safe path that Flask serves: /static/... */
+    background-image: url('/static/bg-highres.svg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    min-height: 100vh;
+    color: #222;
+}
+
+/* Overlay sutil sobre la imagen */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20,30,48,0.45) 0%, rgba(100,115,140,0.22) 50%, rgba(240,246,250,0.06) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+
+body.dark-mode {
+    color: #eee;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    perspective: 1000px;
+}
+
+/* Theme toggle */
+.theme-switch-wrapper {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+}
+
+input:checked+.slider {
+    background-color: #663399;
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Login form */
+/* Glassmorphism + gradiente */
+.login-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2.2rem 2rem;
+    border-radius: 18px;
+    border: 1px solid rgba(34, 47, 72, 0.06);
+    box-shadow: 0 12px 30px rgba(15, 30, 60, 0.18);
+    transform-style: preserve-3d;
+    transition: transform 0.45s ease, opacity 0.4s ease;
+    animation: formSlideIn 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    position: relative;
+    overflow: hidden;
+    z-index: 2; /* Above overlay */
+}
+.login-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(20,30,48,0.02));
+    pointer-events: none;
+}
+
+.login-container:hover {
+    transform: translateZ(20px);
+}
+
+body.dark-mode .login-container {
+    background: rgba(30, 30, 30, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 1.5px 8px 0 rgba(255,255,255,0.08);
+}
+
+h3 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin-bottom: 1.4rem;
+    font-weight: 600;
+    color: #16324a;
+    font-size: 1.6rem;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.input-group i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7b8a99;
+    font-size: 1.1rem;
+    transition: color 0.28s ease, transform 0.36s cubic-bezier(0.2,0.8,0.2,1);
+}
+.input-group input:focus ~ i,
+.input-group input:hover ~ i {
+    color: #2b6cb0; /* azul sobrio al enfocar */
+    transform: translateY(-50%) scale(1.06);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.9rem 1rem 0.9rem 3rem;
+    border: 1px solid rgba(34, 47, 72, 0.06);
+    border-radius: 10px;
+    background: #fff;
+    color: #16324a;
+    font-size: 0.98rem;
+    transition: box-shadow 0.22s ease, border-color 0.22s ease;
+    box-shadow: 0 6px 18px rgba(16,36,59,0.06);
+}
+
+body.dark-mode .input-group input {
+    background: rgba(0, 0, 0, 0.35);
+    color: #eee;
+}
+
+
+.input-group input:focus {
+    outline: none;
+    border-color: rgba(43,108,176,0.95);
+    box-shadow: 0 6px 20px rgba(43,108,176,0.08);
+}
+
+
+
+.btn-primary {
+    width: 100%;
+    padding: 0.95rem;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #2b6cb0 0%, #1e4e7a 100%);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.26s ease, box-shadow 0.26s ease;
+    box-shadow: 0 10px 24px rgba(22,50,74,0.12);
+    font-size: 1rem;
+    letter-spacing: 0.4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::after {
+    /* efecto brillo sutil al pasar cursor */
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -30%;
+    width: 60%;
+    height: 220%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.0) 100%);
+    transform: rotate(25deg) translateX(-120%);
+    transition: transform 0.6s cubic-bezier(0.2,0.9,0.2,1);
+}
+
+.btn-primary:hover::after {
+    transform: rotate(25deg) translateX(90%);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(30,60,96,0.12);
+}
+
+/* Spinner */
+.spinner-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+}
+
+.spinner {
+    width: 56px;
+    height: 56px;
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #ff69b4;
+    border-bottom: 6px solid #663399;
+    border-radius: 50%;
+    animation: spin 0.8s cubic-bezier(0.4,0,0.2,1) infinite;
+    box-shadow: 0 0 16px 2px #ff69b4, 0 0 8px 1px #663399;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Toast notification */
+/* Toast notification visual impact */
+.toast-notification {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    background: rgba(22,50,74,0.96);
+    color: #f7fbff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(10,20,36,0.35);
+    z-index: 10000;
+    opacity: 0;
+    transform: translateY(14px) scale(0.99);
+    transition: opacity 0.36s ease, transform 0.36s ease;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.toast-notification i {
+    color: #ffdca8;
+    font-size: 1.2rem;
+}
+.toast-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.sr-only { /* accesibilidad */
+    position: absolute !important;
+    height: 1px; width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes glassFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Nueva animación: formulario entra desde arriba con fade */
+@keyframes formSlideIn {
+    0% { opacity: 0; transform: translateY(-36px) scale(0.985); }
+    60% { opacity: 1; transform: translateY(6px) scale(1.003); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes iconPop {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.7);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.15) rotate(-8deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1) rotate(0deg);
+    }
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .login-container {
+        width: calc(100% - 40px);
+        padding: 1.6rem 1.2rem;
+        border-radius: 14px;
+        margin: 24px;
+    }
+    .theme-switch-wrapper { top: 12px; right: 12px; }
+    h3 { font-size: 1.3rem; }
+    .input-group input { font-size: 0.95rem; padding-left: 2.8rem; }
+    .toast-notification { right: 12px; left: 12px; bottom: 12px; }
+}
